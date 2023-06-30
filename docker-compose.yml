@@ -1,0 +1,23 @@
+version: "3.8"
+services:
+  build:
+    image: gcc:9.5.0
+    volumes: 
+    - type: bind
+      source: ./
+      target: /var/app
+    command: gcc -o /var/app/superheroes /var/app/src/main.c
+
+  run:
+    image: gcc:9.5.0
+    depends_on: 
+    - build
+    volumes: 
+    - type: bind
+      source: ./
+      target: /var/app
+    command: /var/app/superheroes
+
+
+volumes:
+  src:
