@@ -2,7 +2,7 @@
 
 Superheroes and Supervillains are always battling it out, but how do we know who wins? This repo contains a function that gives us that answer. 
 
-Some recent battles are stored in our log files - [https://s3.eu-west-2.amazonaws.com/build-circle/characters.json](https://dc-battles.s3.eu-west-2.amazonaws.com/dc_battles.csv)
+Some recent battles are stored in our log files - [https://dc-battles.s3.eu-west-2.amazonaws.com/dc_battles.csv](https://dc-battles.s3.eu-west-2.amazonaws.com/dc_battles.csv)
 
 ## Task
 
