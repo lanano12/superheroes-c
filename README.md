@@ -10,6 +10,6 @@ Note: This tech test is deliberately loose. We're looking for your opinions and 
 
 Above all, Build Circle values clear, well-tested code.
 
-1. With supporting tests, write a terminal app that downloads a log file of recent superhero battles and calculates the winner, the app should output the winner of each battle on the screen. The log file can be downloaded [here](https://dc-battles.s3.eu-west-2.amazonaws.com/dc_battles.csv) You only need to consider the "happy" path.
+1. With supporting tests, write a terminal app that downloads a log file of recent superhero battles and calculates the winner, the app should output the winner of each battle on the screen. The log file can be downloaded [here](https://dc-battles.s3.eu-west-2.amazonaws.com/dc_battles.csv). You only need to consider the "happy" path.
 
 2. Using any method you like, compile this to run on an ARM processor.
