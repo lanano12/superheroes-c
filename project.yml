@@ -54,7 +54,6 @@
     - TEST
     - UNIT_TEST
 
-
 :cmock:
   :mock_prefix: mock_
   :when_no_prototypes: :warn
@@ -102,4 +101,16 @@
   :enabled:
     - stdout_pretty_tests_report
     - module_generator
-...
+    - gcov
+
+:flags:
+  :test:
+    :compile:
+      :*adds:
+        - -fprofile-arcs
+        - -ftest-coverage
+    :link:
+      :*adds:
+        - -fprofile-arcs
+        - -ftest-coverage
+

@@ -1,0 +1,31 @@
+name: CMake Build
+
+on:
+  push:
+    branches:
+      - main  # replace with the name of your default branch if it's not 'main'
+  pull_request:
+    branches:
+      - main  # again, adjust the branch name if needed
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
+      - name: Create build directory
+        run: mkdir build
+      
+      - name: Run CMake
+        working-directory: build
+        run: cmake ..
+      
+      - name: Build
+        working-directory: build
+        run: make
+      
+      - name: Run Program
+        working-directory: build
+        run: ./bin/main
