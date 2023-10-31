@@ -38,7 +38,7 @@ void calculate_winners(Battle *battles, int battle_count) {
         } else if (battles[i].hero_score < battles[i].villain_score) {
             printf("Winner is %s due to higher score.\n", battles[i].villain_name);
         } else {
-            printf("Tie, as both have equal scores.\n");
+            printf("Draw, as both have equal scores.\n");
         }
     }
 }

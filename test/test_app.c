@@ -7,6 +7,7 @@ void tearDown(void) {}
 
 // Test for read_csv function
 void test_read_csv_should_ParseValidCsvCorrectly(void) {
+    printf("\nTest: Reading and parsing a valid CSV file...\n");    
     FILE *test_file = fopen("test_data.csv", "w");
     if (test_file == NULL) {
         TEST_FAIL_MESSAGE("Failed to open test_data.csv for writing.");
@@ -42,6 +43,7 @@ void test_read_csv_should_ParseValidCsvCorrectly(void) {
 
 // Test for calculate_winners function
 void test_calculate_winners_should_IdentifyCorrectWinners(void) {
+    printf("\nTest: Calculating winners for valid battles...\n");
     Battle battles[] = {
         {"Hero1", 45, "Villain1", 50},
         {"Hero2", 60, "Villain2", 55}
@@ -75,6 +77,7 @@ void test_calculate_winners_should_IdentifyCorrectWinners(void) {
 
 // Test read_csv with an empty CSV
 void test_read_csv_should_HandleEmptyCsv(void) {
+    printf("\nTest: Reading an empty CSV file...\n");
     FILE *test_file = fopen("test_empty_data.csv", "w");
     if (test_file == NULL) {
         TEST_FAIL_MESSAGE("Failed to open test_empty_data.csv for writing.");
@@ -96,6 +99,7 @@ void test_read_csv_should_HandleEmptyCsv(void) {
 
 // Test read_csv with more battles than the array can handle
 void test_read_csv_should_HandleArrayOverflow(void) {
+    printf("\nTest: Reading CSV with more battles than the array can handle...\n");
     FILE *test_file = fopen("test_overflow_data.csv", "w");
     if (test_file == NULL) {
         TEST_FAIL_MESSAGE("Failed to open test_overflow_data.csv for writing.");
@@ -121,6 +125,7 @@ void test_read_csv_should_HandleArrayOverflow(void) {
 
 // Test for invalid CSV format (e.g., missing fields, wrong delimiter, etc.)
 void test_read_csv_should_HandleInvalidCsvFormat(void) {
+    printf("\nTest: Reading CSV with invalid format...\n");
     FILE *test_file = fopen("test_invalid_data.csv", "w");
     if (test_file == NULL) {
         TEST_FAIL_MESSAGE("Failed to open test_invalid_data.csv for writing.");
@@ -144,9 +149,38 @@ void test_read_csv_should_HandleInvalidCsvFormat(void) {
 
 // Test calculate_winners with no battles
 void test_calculate_winners_should_HandleNoBattles(void) {
+    printf("\nTest: Calculating winners with no battles...\n");
     Battle battles[10];
     calculate_winners(battles, 0);
     // Since there are no battles, calculate_winners shouldn't print anything or crash
 }
 
+void test_calculate_winners_should_HandleScoreDraw(void) {
+    printf("\nTest: Calculating winners when there's a score draw...\n");
 
+    Battle battles[] = {
+        {"HeroDraw", 50, "VillainDraw", 50}
+    };
+    
+    // Redirect stdout to a temporary file
+    FILE *original_stdout = stdout;
+    FILE *temp_file = tmpfile();
+    if (!temp_file) {
+        TEST_FAIL_MESSAGE("Failed to create temporary file.");
+    }
+    stdout = temp_file;
+
+    calculate_winners(battles, 1);
+
+    // Reset stdout to its original state
+    stdout = original_stdout;
+
+    // Read the contents of the temporary file to check the output
+    rewind(temp_file);  // set file position to the beginning
+
+    char output_line[MAX_LINE_LEN];
+    fgets(output_line, sizeof(output_line), temp_file);
+    TEST_ASSERT_EQUAL_STRING("Battle between HeroDraw (score: 50.00) and VillainDraw (score: 50.00): Draw, as both have equal scores.\n", output_line);
+
+    fclose(temp_file);
+}
