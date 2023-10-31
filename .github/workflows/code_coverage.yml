@@ -1,0 +1,34 @@
+name: Code Coverage
+
+on:
+  push:
+    branches:
+      - main # replace with your default branch name if it's not 'main'
+  pull_request:
+    branches:
+      - main # again, replace with your default branch name if needed
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y gcc gcovr
+        # Add other dependencies you might need
+
+    - name: Run Ceedling and Generate Coverage Report
+      run: |
+        ceedling clobber gcov:all
+        gcovr -r . --html --html-details -o ./build/artifacts/gcov/gcovr-report.html
+
+    - name: Upload Coverage Report
+      uses: actions/upload-artifact@v2
+      with:
+        name: coverage-report
+        path: ./build/artifacts/gcov/gcovr-report.html
