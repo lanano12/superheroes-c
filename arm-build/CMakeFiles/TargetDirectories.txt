@@ -1,7 +1,0 @@
-/home/l/Desktop/superheroes-c/arm-build/CMakeFiles/edit_cache.dir
-/home/l/Desktop/superheroes-c/arm-build/CMakeFiles/rebuild_cache.dir
-/home/l/Desktop/superheroes-c/arm-build/src/CMakeFiles/edit_cache.dir
-/home/l/Desktop/superheroes-c/arm-build/src/CMakeFiles/rebuild_cache.dir
-/home/l/Desktop/superheroes-c/arm-build/src/Program/CMakeFiles/main.dir
-/home/l/Desktop/superheroes-c/arm-build/src/Program/CMakeFiles/edit_cache.dir
-/home/l/Desktop/superheroes-c/arm-build/src/Program/CMakeFiles/rebuild_cache.dir
