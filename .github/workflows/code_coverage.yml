@@ -3,10 +3,11 @@ name: Code Coverage
 on:
   push:
     branches:
-      - main # replace with your default branch name if it's not 'main'
+      - main
+
   pull_request:
     branches:
-      - main # again, replace with your default branch name if needed
+      - main
 
 jobs:
   coverage:
@@ -21,15 +22,19 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y gcc gcovr ruby ruby-dev
         sudo gem install ceedling
-        # Add other dependencies you might need
 
     - name: Run Ceedling and Generate Coverage Report
       run: |
         ceedling clobber gcov:all
-        gcovr -r . --html --html-details -o ./build/artifacts/gcov/gcovr-report.html
+        gcovr -r . --html --html-details -o ./gcovr-report.html
 
-    - name: Upload Coverage Report
-      uses: actions/upload-artifact@v2
+    - name: Deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@4.1.5
       with:
-        name: coverage-report
-        path: ./build/artifacts/gcov/gcovr-report.html
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        BRANCH: gh-pages
+        FOLDER: .
+        CLEAN: true
+        SINGLE_COMMIT: true
+        COMMIT_MESSAGE: "Update coverage report"
+        FILES: "gcovr-report.html"
