@@ -36,10 +36,9 @@ jobs:
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@4.1.5
       with:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        BRANCH: gh-pages
-        FOLDER: .
-        CLEAN: true
-        SINGLE_COMMIT: true
-        COMMIT_MESSAGE: "Update coverage report"
-        FILES: "coverage_reports.zip"
+        token: ${{ secrets.GITHUB_TOKEN }}
+        branch: gh-pages
+        folder: .
+        clean: true
+        single-commit: true
+        commit-message: "Update coverage report"
