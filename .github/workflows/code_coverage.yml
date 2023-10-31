@@ -28,13 +28,11 @@ jobs:
         ceedling clobber gcov:all
         gcovr -r . --html --html-details -o ./gcovr-report.html
 
-    - name: Deploy to GitHub Pages
-      uses: JamesIves/github-pages-deploy-action@4.1.5
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        branch: gh-pages
-        folder: .
-        clean: true
-        single-commit: true
-        commit-message: "Update coverage report"
+    - name: Zip Coverage Report
+      run: zip coverage_report.zip ./gcovr-report.html
 
+    - name: Upload Coverage Report
+      uses: actions/upload-artifact@v2
+      with:
+        name: coverage-report
+        path: coverage_report.zip
