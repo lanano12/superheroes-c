@@ -1,4 +1,5 @@
 #include "main.h"
+#include "app.h"
 
 #ifndef UNIT_TEST
 int main() {
