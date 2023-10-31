@@ -1,7 +1,7 @@
 project(Program)
 
 # Create executable
-add_executable(main main.c)
+add_executable(main main.c app.c)
 
 # Set the directory for the executables
 set_target_properties(main  PROPERTIES
