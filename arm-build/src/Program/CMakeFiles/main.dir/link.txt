@@ -1,0 +1,1 @@
+/usr/bin/arm-linux-gnueabi-gcc CMakeFiles/main.dir/main.c.o CMakeFiles/main.dir/app.c.o -o ../../bin/main 

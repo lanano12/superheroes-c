@@ -1,0 +1,33 @@
+name: ARM Cross-Compile
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install ARM Cross-Compilation Tools
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y gcc-arm-linux-gnueabi g++-arm-linux-gnueabi
+
+    - name: Run ARM Cross-Compilation
+      run: |
+        chmod +x ./arm-build.sh
+        ./arm-build.sh
+
+    - name: Upload ARM Binary
+      uses: actions/upload-artifact@v2
+      with:
+        name: arm-binary
+        path: ./bin/main
