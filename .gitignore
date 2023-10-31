@@ -33,6 +33,7 @@
 
 # Build folder
 build
+arm-build
 
 # Allow
 !build/dc_battles.csv
