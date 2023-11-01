@@ -2,12 +2,15 @@
 
 folder_name="build"
 
-# Check if the folder exists
-if [ ! -d "$folder_name" ]; then
-    # Create the folder
-    mkdir "$folder_name"
-    echo "Folder created: $folder_name"
+# If the folder exists, delete it
+if [ -d "$folder_name" ]; then
+    sudo rm -rf "$folder_name"
+    echo "Folder deleted: $folder_name"
 fi
+
+# Create the folder
+mkdir "$folder_name"
+echo "Folder created: $folder_name"
 
 cd build
 
@@ -18,4 +21,4 @@ echo "Run make from the build folder"
 make
 
 echo "Run Program"
-./bin/main
+./bin/main ../input/dc_battles.csv

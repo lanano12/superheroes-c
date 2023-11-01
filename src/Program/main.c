@@ -2,8 +2,13 @@
 #include "app.h"
 
 #ifndef UNIT_TEST
-int main() {
-    const char *filename = "dc_battles.csv";
+int main(int argc, char *argv[]) {
+    if (argc < 2) {
+        fprintf(stderr, "Usage: %s <path_to_dc_battles.csv>\n", argv[0]);
+        return 1;
+    }
+
+    const char *filename = argv[1];
     FILE *fp = fopen(filename, "r");
     if (!fp) {
         char cwd[1024];
