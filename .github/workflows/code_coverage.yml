@@ -17,6 +17,9 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Print Current Directory
+      run: pwd
+
     - name: Install dependencies
       run: |
         sudo apt-get update
@@ -27,6 +30,17 @@ jobs:
       run: |
         ceedling clobber gcov:all
         gcovr -r . --html --html-details -o ./gcovr-report.html
+
+    - name: List Files in Root Directory
+      run: ls -al
+
+    - name: List generated reports in gcov directory
+      run: |
+        if [ -d "./build/artifacts/gcov/" ]; then
+          ls -al ./build/artifacts/gcov/
+        else
+          echo "Directory ./build/artifacts/gcov/ does not exist."
+        fi
 
     # Zip the main coverage report and any additional reports matching the pattern
     - name: Zip coverage reports
