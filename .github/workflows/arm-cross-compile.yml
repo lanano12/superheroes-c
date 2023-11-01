@@ -1,33 +1,38 @@
-name: ARM Cross-Compile
+name: ARM Cross-Compile with CMake
 
 on:
   push:
     branches:
-      - main
+      - main  # replace with the name of your default branch if it's not 'main'
   pull_request:
     branches:
-      - main
+      - main  # again, adjust the branch name if needed
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    env:
+      ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Install ARM Cross-Compilation Tools
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y gcc-arm-linux-gnueabi g++-arm-linux-gnueabi
+      - name: Install ARM Cross-Compilation Tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc-arm-linux-gnueabi g++-arm-linux-gnueabi qemu-user-static
 
-    - name: Run ARM Cross-Compilation
-      run: |
-        chmod +x ./arm-build.sh
-        ./arm-build.sh
+      - name: Create build directory
+        run: mkdir -p arm-build
 
-    - name: Upload ARM Binary
-      uses: actions/upload-artifact@v2
-      with:
-        name: arm-binary
-        path: ./bin/main
+      - name: Run CMake with ARM toolchain
+        working-directory: arm-build
+        run: cmake -DCMAKE_TOOLCHAIN_FILE=../arm-toolchain.cmake ..
+
+      - name: Build
+        working-directory: arm-build
+        run: make
+
+      - name: Run Program with QEMU
+        working-directory: arm-build
+        run: qemu-arm ./bin/main ../input/dc_battles.csv
