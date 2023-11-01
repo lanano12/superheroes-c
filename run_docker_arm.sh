@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker build -t arm-cross-compile .
+docker-compose -f docker-compose.arm.yml up
