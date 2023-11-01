@@ -2,19 +2,17 @@ version: "3.8"
 
 services:
   build:
-    image: gcc:latest
+    image: arm-cross-compile
     volumes:
       - .:/var/app
     command: >
-      bash -c "apt-get update &&
-               apt-get install -y cmake &&
-               mkdir -p /var/app/build &&
+      bash -c "mkdir -p /var/app/build &&
                cd /var/app/build &&
-               cmake ../src/Program &&
+               cmake -DCMAKE_TOOLCHAIN_FILE=/var/app/arm-toolchain.cmake ../src/Program &&
                make"
 
   run:
-    image: gcc:latest
+    image: arm-cross-compile
     depends_on:
       - build
     volumes:

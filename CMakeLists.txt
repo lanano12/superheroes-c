@@ -1,6 +1,4 @@
-cmake_minimum_required (VERSION 3.10)
-project (MyProject)
-
-set(CMAKE_CXX_STANDARD 17)
+cmake_minimum_required(VERSION 3.10)
+project(MyProject LANGUAGES C)
 
 add_subdirectory(src)

@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  ceedling:
+    image: ubuntu:latest
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: /bin/bash -c "apt-get update &&
+                            apt-get install -y gcc gcovr ruby ruby-dev zip &&
+                            gem install ceedling &&
+                            ceedling clobber gcov:all &&
+                            gcovr -r . --html --html-details -o ./gcovr-report.html &&
+                            zip coverage_reports.zip ./gcovr-report.html &&
+                            find . -maxdepth 1 -name 'gcovr-report.*.html' -exec zip coverage_reports.zip {} +"
