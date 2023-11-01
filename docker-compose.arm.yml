@@ -8,7 +8,7 @@ services:
     command: >
       bash -c "mkdir -p /var/app/build &&
                cd /var/app/build &&
-               cmake -DCMAKE_TOOLCHAIN_FILE=/var/app/arm-toolchain.cmake ../src/Program &&
+               cmake -DCMAKE_TOOLCHAIN_FILE=/var/arm-toolchain.cmake ../src/Program &&
                make"
 
   run:
@@ -17,4 +17,4 @@ services:
       - build
     volumes:
       - .:/var/app
-    command: /var/app/build/bin/main
+    command: qemu-arm /var/app/build/bin/main

@@ -1,0 +1,8 @@
+:sanitizer:
+  :type: address
+  :options:
+    detect_leaks: true
+    detect_stack_use_after_return: true
+    check_initialization_order: true
+  :compiler_flags: "-fsanitize=address -fno-omit-frame-pointer"
+  :linker_flags: "-fsanitize=address"
