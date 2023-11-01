@@ -2,6 +2,8 @@
 
 folder_name="build"
 
+rm -f CMakeCache.txt
+
 # If the folder exists, delete it
 if [ -d "$folder_name" ]; then
     sudo rm -rf "$folder_name"
@@ -21,4 +23,10 @@ echo "Run make from the build folder"
 make
 
 echo "Run Program"
-./bin/main ../input/dc_battles.csv
+if [ -f ./bin/main ]; then
+    echo "Run Program"
+    ./bin/main ../input/dc_battles.csv
+else
+    echo "Error: Binary not found!"
+fi
+
