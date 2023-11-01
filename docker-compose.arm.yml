@@ -6,15 +6,25 @@ services:
     volumes:
       - .:/var/app
     command: >
-      bash -c "mkdir -p /var/app/build &&
-               cd /var/app/build &&
+      bash -c "mkdir -p /var/app/arm-build &&
+               cd /var/app/arm-build &&
                cmake -DCMAKE_TOOLCHAIN_FILE=/var/app/arm-toolchain.cmake ../src/Program &&
                make"
 
   run:
-    image: arm-cross-compile
+    build:
+      context: .
+      target: runner # Specify the runner stage here
     depends_on:
       - build
     volumes:
       - .:/var/app
-    command: qemu-arm /var/app/build/bin/main
+    command: qemu-arm /var/app/arm-build/bin/main /var/app/input/dc_battles.csv
+
+  cleanup:
+    image: arm-cross-compile
+    depends_on:
+      - run
+    volumes:
+      - .:/var/app
+    command: rm -rf /var/app/arm-build

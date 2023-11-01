@@ -1,12 +1,21 @@
-# Use an Ubuntu base image
-FROM ubuntu:20.04
+# Cross-compile stage
+FROM ubuntu:20.04 AS arm-cross-compile
 
-# Install the necessary tools
 RUN apt-get update && \
     apt-get install -y \
-    qemu-system-arm qemu-user \
     gcc-arm-linux-gnueabi \
     g++-arm-linux-gnueabi \
     cmake \
     make && \
     rm -rf /var/lib/apt/lists/*
+
+WORKDIR /var/app
+
+# Run Stage
+FROM arm32v7/ubuntu:20.04 AS runner
+
+RUN apt-get update && \
+    apt-get install -y qemu-user-static && \
+    rm -rf /var/lib/apt/lists/*
+
+WORKDIR /var/app
