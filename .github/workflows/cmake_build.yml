@@ -30,4 +30,4 @@ jobs:
       
       - name: Run Program
         working-directory: build
-        run: ./bin/main
+        run: ./bin/main ../input/dc_battles.csv
