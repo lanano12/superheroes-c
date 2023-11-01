@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-
   pull_request:
     branches:
       - main
@@ -29,10 +28,12 @@ jobs:
         gcovr -r . --html --html-details -o ./gcovr-report.html
 
     - name: Zip Coverage Report
-      run: zip coverage_report.zip ./gcovr-report.html
-           find . -maxdepth 1 -name "gcovr-report.*.html" -exec zip coverage_reports.zip {} \;
+      run: |
+        zip coverage_reports.zip ./gcovr-report.html
+        find . -maxdepth 1 -name "gcovr-report.*.html" -exec zip coverage_reports.zip {} +
+
     - name: Upload Coverage Report
       uses: actions/upload-artifact@v2
       with:
         name: coverage-report
-        path: coverage_report.zip
+        path: coverage_reports.zip
