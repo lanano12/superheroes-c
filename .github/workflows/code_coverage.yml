@@ -34,19 +34,11 @@ jobs:
     - name: List Files in Root Directory
       run: ls -al
 
-    - name: List generated reports in gcov directory
-      run: |
-        if [ -d "./build/artifacts/gcov/" ]; then
-          ls -al ./build/artifacts/gcov/
-        else
-          echo "Directory ./build/artifacts/gcov/ does not exist."
-        fi
-
     # Zip the main coverage report and any additional reports matching the pattern
     - name: Zip coverage reports
       run: |
         zip coverage_reports.zip ./gcovr-report.html
-        find ./build/artifacts/gcov/ -name "*.html" -exec zip coverage_reports.zip {} \;
+        find . -maxdepth 1 -name "gcovr-report.*.html" -exec zip coverage_reports.zip {} \;
 
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@4.1.5
