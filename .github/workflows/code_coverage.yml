@@ -31,7 +31,8 @@ jobs:
     # Zip the main coverage report and any additional reports matching the pattern
     - name: Zip coverage reports
       run: |
-        zip coverage_reports.zip ./gcovr-report.html ./build/artifacts/gcov/gcovr-report.app.c.*.html
+        zip coverage_reports.zip ./gcovr-report.html
+        find ./build/artifacts/gcov/ -name "*.html" -exec zip coverage_reports.zip {} \;
 
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@4.1.5
