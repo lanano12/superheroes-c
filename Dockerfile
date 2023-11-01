@@ -6,7 +6,8 @@ RUN apt-get update && \
     gcc-arm-linux-gnueabi \
     g++-arm-linux-gnueabi \
     cmake \
-    make && \
+    make \
+    qemu-user-static && \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR /var/app
