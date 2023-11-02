@@ -9,12 +9,15 @@ services:
       bash -c "mkdir -p /var/app/arm-build &&
                cd /var/app/arm-build &&
                cmake -DCMAKE_TOOLCHAIN_FILE=/var/app/arm-toolchain.cmake ../src/Program &&
-               make"
+               make &&
+               patchelf --set-interpreter /usr/arm-linux-gnueabi/lib/ld-linux.so.3 /var/app/arm-build/bin/main"
 
   run:
     build:
       context: .
       target: runner # Specify the runner stage here
+    environment:
+      - LD_LIBRARY_PATH=/usr/arm-linux-gnueabi/lib:$LD_LIBRARY_PATH
     depends_on:
       - build
     volumes:
