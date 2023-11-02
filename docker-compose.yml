@@ -19,4 +19,4 @@ services:
       - build
     volumes:
       - .:/var/app
-    command: /var/app/build/bin/main
+    command: /var/app/build/bin/main /var/app/input/dc_battles.csv
