@@ -1,5 +1,5 @@
 #!/bin/bash
-# sudo apt-get install gcc-arm-linux-gnueabi g++-arm-linux-gnueabi
+# sudo apt-get install gcc-arm-linux-gnueabi g++-arm-linux-gnueabi qemu-user-static
 
 folder_name="arm-build"
 
@@ -18,7 +18,7 @@ cmake -DCMAKE_TOOLCHAIN_FILE=arm-toolchain.cmake ..
 echo "Run make from the build folder"
 make
 
-# Note: You won't be able to run the ARM binary on a non-ARM machine directly
-# Uncomment the following if you're running this on an ARM machine
-# echo "Run Program"
-# ./bin/main
+echo "Run ARM target using QEMU"
+export LD_LIBRARY_PATH=/usr/arm-linux-gnueabi/lib:$LD_LIBRARY_PATH
+patchelf --set-interpreter /usr/arm-linux-gnueabi/lib/ld-linux.so.3 ./bin/main
+qemu-arm-static ./bin/main ../input/dc_battles.csv
