@@ -16,7 +16,7 @@ WORKDIR /var/app
 FROM arm32v7/ubuntu:20.04 AS runner
 
 RUN apt-get update && \
-    apt-get install -y qemu-user-static && \
+    apt-get install -y qemu-user-static libc6-armhf-cross && \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR /var/app

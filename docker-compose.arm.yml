@@ -19,7 +19,7 @@ services:
       - build
     volumes:
       - .:/var/app
-    command: qemu-arm /var/app/arm-build/bin/main /var/app/input/dc_battles.csv
+    command: qemu-arm-static /var/app/arm-build/bin/main /var/app/input/dc_battles.csv
 
   cleanup:
     image: arm-cross-compile

@@ -35,4 +35,4 @@ jobs:
 
       - name: Run Program with QEMU
         working-directory: arm-build
-        run: qemu-arm ./bin/main ../input/dc_battles.csv
+        run: qemu-arm-static ./bin/main ../input/dc_battles.csv
