@@ -3,10 +3,10 @@ name: ARM Cross-Compile with CMake
 on:
   push:
     branches:
-      - main  # replace with the name of your default branch if it's not 'main'
+      - main
   pull_request:
     branches:
-      - main  # again, adjust the branch name if needed
+      - main
 
 jobs:
   build:
@@ -17,10 +17,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Install ARM Cross-Compilation Tools
+      - name: Install ARM Cross-Compilation Tools and patchelf
         run: |
           sudo apt-get update
-          sudo apt-get install -y gcc-arm-linux-gnueabi g++-arm-linux-gnueabi qemu-user-static
+          sudo apt-get install -y gcc-arm-linux-gnueabi g++-arm-linux-gnueabi qemu-user-static patchelf
 
       - name: Create build directory
         run: mkdir -p arm-build
@@ -32,6 +32,10 @@ jobs:
       - name: Build
         working-directory: arm-build
         run: make
+
+      - name: Fix Binary Interpreter Path using patchelf
+        working-directory: arm-build
+        run: patchelf --set-interpreter /usr/arm-linux-gnueabi/lib/ld-linux.so.3 ./bin/main
 
       - name: Run Program with QEMU
         working-directory: arm-build
